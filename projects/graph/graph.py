@@ -33,7 +33,7 @@ class Graph:
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
-        beginning from starting_vertex.
+        beginning from starting_vertex. lol
         """
         queue = Queue()
         visited = set()
