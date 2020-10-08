@@ -33,7 +33,7 @@ beginWord = "hungry"
 endWord = "happy"
 None
 """
-​
+
 words = set()
 ​
 with open("words.txt") as f:
