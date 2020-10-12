@@ -29,6 +29,8 @@ player = Player(world.starting_room)
 traversal_path = []
 '''
 Tasks: 
+ impelment a stack. 
+
  write a loop to drive the room pathing, while there are still rooms to explore
  while the length of visited rooms is less than the amount of rooms in the world
 
@@ -50,6 +52,24 @@ back-tracking if there is a dead end
 
 pop and remove the top item from the stack
 '''
+
+
+class Stack():
+    def __init__(self):
+        self.stack = []
+
+    def push(self, value):
+        self.stack.append(value)
+
+    def pop(self):
+        if self.size() > 0:
+            return self.stack.pop()
+        else:
+            return None
+
+    def size(self):
+        return len(self.stack)
+
 
 # TRAVERSAL TEST
 visited_rooms = set()
