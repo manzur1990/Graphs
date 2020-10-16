@@ -27,31 +27,9 @@ player = Player(world.starting_room)
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 traversal_path = []
-'''
-Tasks: 
- impelment a stack. 
 
- write a loop to drive the room pathing, while there are still rooms to explore
- while the length of visited rooms is less than the amount of rooms in the world
-
-conditional statement to check to make sure room move is valid, there is an exit and the room is not visited
-
-find a way to reference methods from room.py
-
-make sure to create a variable for edges called "path" for storing exits
-
- check to make sure if there are still ways to travel,
-         -1 to target the end of the list because its a stack
-
-insert the element to the top of the stack
-    then player will move next
-
-append the path move to the traversal path
-
-back-tracking if there is a dead end
-
-pop and remove the top item from the stack
-'''
+#coding start ********
+#   bring in the stack and queue
 
 
 class Stack():
@@ -70,6 +48,62 @@ class Stack():
     def size(self):
         return len(self.stack)
 
+
+# use stack to traverse
+stack = Stack()
+# make a set()
+visited = set()
+
+
+# helper function that allows you to keep track of of dead ends and allows you to go back
+def go_back(direction):
+    if direction == "n":
+        return "s"
+    elif direction == "s":
+        return "n"
+    elif direction == "e":
+        return "w"
+    elif direction == "w":
+        return "e"
+
+
+# loop through the rooms with a series of paths, as long as there is rooms to be explored
+# length of visited rooms < amount of rooms in the map
+while len(visited) < len(world.rooms):
+
+    exits = player.current_room.get_exits()
+    path = []
+    # refers to the room.py file
+    for exit in exits:
+        # a check to make sure room move is valid, there is an exit and the room is not visited
+        if exit is not None and player.current_room.get_room_in_direction(
+                exit) not in visited:
+            # append the exit to the path
+            path.append(exit)
+            # add the room to the visited rooms list
+    visited.add(player.current_room)
+    # an if check to make sure the path is over 0
+    if len(path) > 0:
+        # an if check to make sure there are still ways to travel
+        # defining the move, it will use a random integer to randomly choose its next possible direction, making the range of moves each test different,
+        #  -1 to grab the end of the list because its a stack,
+        move = random.randint(0, len(path) - 1)
+        # insert the element to the top of the stack
+        stack.push(path[move])
+        # player  moves along the path
+        player.travel(path[move])
+
+        traversal_path.append(path[move])
+
+    else:
+
+        # implement the back tracking if the room leads to a dead end
+        dead_end = stack.pop()
+        # pop and remove the top item from the stack
+        player.travel(go_back(dead_end))
+        # will travel in opposite direction, as per go_back
+        traversal_path.append(go_back(dead_end))
+        # append the path with the direction
 
 # TRAVERSAL TEST
 visited_rooms = set()
@@ -91,12 +125,12 @@ else:
 #######
 # UNCOMMENT TO WALK AROUND
 #######
-player.current_room.print_room_description(player)
-while True:
-    cmds = input("-> ").lower().split(" ")
-    if cmds[0] in ["n", "s", "e", "w"]:
-        player.travel(cmds[0], True)
-    elif cmds[0] == "q":
-        break
-    else:
-        print("I did not understand that command.")
+# player.current_room.print_room_description(player)
+# while True:
+#     cmds = input("-> ").lower().split(" ")
+#     if cmds[0] in ["n", "s", "e", "w"]:
+#         player.travel(cmds[0], True)
+#     elif cmds[0] == "q":
+#         break
+#     else:
+#         print("I did not understand that command.")
