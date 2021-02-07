@@ -33,7 +33,7 @@ class Graph:
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
-        beginning from starting_vertex.
+        beginning from starting_vertex. lol
         """
         queue = Queue()
         visited = set()
@@ -99,7 +99,7 @@ class Graph:
         while queue.size() > 0:
             # dequeue the first path
             path = queue.dequeue()
-            # grab the last index from the PATH
+            # grab the last index from the PATHz
             vertex = path[-1]
             # check if the vertex has not been visited
             if vertex not in visited:
@@ -161,7 +161,7 @@ class Graph:
                       starting_vertex,
                       destination_vertex,
                       visited=None,
-                      path=None):
+                     path=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -176,7 +176,7 @@ class Graph:
 
         visited.add(starting_vertex)
 
-        path = path + [starting_vertex]  # subtly makes a copy of the path
+        path += [starting_vertex]  # subtly makes a copy of the path
         """
         # Line above equivalent to:
 ​
